@@ -1,32 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { selectSearchTerm } from "../search/searchSlice";
-import {
-  addFavoriteRecipe,
-  removeFavoriteRecipe,
-} from "../favoriteRecipes/favoriteRecipesSlice";
-
-
-// Old version of the slice 
-import allRecipesData from '../../data/data.js';
-export const loadData = () => {
-  return {
-    type: 'allRecipes/loadData',
-    payload: allRecipesData
-  }
-}
-const initialState = [];
-export const allRecipesReducer = (allRecipes = initialState, action) => {
-  switch (action.type) {
-    case 'allRecipes/loadData':
-      return action.payload;
-    case 'favoriteRecipes/addRecipe':
-      return allRecipes.filter(recipe => recipe.id !== action.payload.id);
-    case 'favoriteRecipes/removeRecipe':
-      return [...allRecipes, action.payload]
-    default:
-      return allRecipes;
-  }
-}
 
 
 export const loadRecipes = createAsyncThunk(
@@ -47,6 +20,15 @@ const sliceOptions = {
     hasError: false
   },
   reducers: {
+    addRecipe: (state, action) => {
+      return state.recipes.filter(recipe => recipe.id !== action.payload.id);
+    },
+    removeRecipe: (state, action) => {
+      return [...state.recipes, action.payload];
+    }, 
+    loadData: (state, action) => {
+      return action.payload;
+    },
   },
   extraReducers: {
     [loadRecipes.pending]: (state, action) => {
