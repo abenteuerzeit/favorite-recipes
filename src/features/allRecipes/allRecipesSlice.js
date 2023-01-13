@@ -1,23 +1,39 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import {
-//   addFavoriteRecipe,
-//   removeFavoriteRecipe,
-// } from "../favoriteRecipes/favoriteRecipesSlice";
 import { selectSearchTerm } from "../search/searchSlice";
+import {
+  addFavoriteRecipe,
+  removeFavoriteRecipe,
+} from "../favoriteRecipes/favoriteRecipesSlice";
 
-import allRecipesData from '../../mocks/recipes.json';
 
+// Old version of the slice 
+import allRecipesData from '../../data/data.js';
 export const loadData = () => {
   return {
     type: 'allRecipes/loadData',
     payload: allRecipesData
   }
 }
+const initialState = [];
+export const allRecipesReducer = (allRecipes = initialState, action) => {
+  switch (action.type) {
+    case 'allRecipes/loadData':
+      return action.payload;
+    case 'favoriteRecipes/addRecipe':
+      return allRecipes.filter(recipe => recipe.id !== action.payload.id);
+    case 'favoriteRecipes/removeRecipe':
+      return [...allRecipes, action.payload]
+    default:
+      return allRecipes;
+  }
+}
+
 
 export const loadRecipes = createAsyncThunk(
   "allRecipes/getAllRecipes",
   async () => {
-    const data = fetch("api/recipes?limit=10");
+    const data = await fetch("api/recipes?limit=10");
+    console.log(data);
     const json = await data.json();
     return json;
   }
@@ -30,7 +46,8 @@ const sliceOptions = {
     isLoading: false,
     hasError: false
   },
-  reducers: {},
+  reducers: {
+  },
   extraReducers: {
     [loadRecipes.pending]: (state, action) => {
       state.isLoading = true;
@@ -49,21 +66,6 @@ const sliceOptions = {
 }
 
 export const allRecipesSlice = createSlice(sliceOptions);
-
-// const initialState = [];
-// const allRecipesReducer = (allRecipes = initialState, action) => {
-//   switch (action.type) {
-//     case 'allRecipes/loadData':
-//       return action.payload;
-//     case 'favoriteRecipes/addRecipe':
-//       return allRecipes.filter(recipe => recipe.id !== action.payload.id);
-//     case 'favoriteRecipes/removeRecipe':
-//       return [...allRecipes, action.payload]
-//     default:
-//       return allRecipes;
-//   }
-// }
-
 
 export const selectAllRecipes = (state) => state.allRecipes.recipes;
 
