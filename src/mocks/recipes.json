@@ -1,0 +1,103 @@
+[
+    {
+      "id": 1,
+      "name": "Cheeseburger",
+      "img": "/img/cheeseburger.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Dumplings",
+      "img": "/img/dumplings.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Ceviche",
+      "img": "/img/ceviche.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Spaghetti",
+      "img": "/img/spaghetti.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Pad Thai",
+      "img": "/img/padthai.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Calamari",
+      "img": "/img/calamari.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Pizza",
+      "img": "/img/pizza.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Ramen",
+      "img": "/img/ramen.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Biscuits",
+      "img": "/img/biscuits.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Sushi",
+      "img": "/img/sushi.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Spam musubi",
+      "img": "/img/spammusubi.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Fish n' chips",
+      "img": "/img/fishnchips.jpg"
+    },
+    {
+      "id": 13,
+      "name": "Tacos",
+      "img": "/img/tacos.jpg"
+    },
+    {
+      "id": 14,
+      "name": "Poutine",
+      "img": "/img/poutine.jpg"
+    },
+    {
+      "id": 15,
+      "name": "Som tam",
+      "img": "/img/somtam.jpg"
+    },
+    {
+      "id": 16,
+      "name": "Masala dosa",
+      "img": "/img/masaladosa.jpg"
+    },
+    {
+      "id": 17,
+      "name": "Pho",
+      "img": "/img/pho.jpg"
+    },
+    {
+      "id": 18,
+      "name": "Hummus",
+      "img": "/img/hummus.jpg"
+    },
+    {
+      "id": 19,
+      "name": "Churrasco",
+      "img": "/img/churrasco.jpg"
+    },
+    {
+      "id": 20,
+      "name": "Bulgogi",
+      "img": "/img/bulgogi.jpg"
+    }
+  ]
+  

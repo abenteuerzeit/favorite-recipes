@@ -1,36 +1,42 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { removeRecipe, selectFilteredFavoriteRecipes } from './favoriteRecipesSlice.js';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FavoriteButton from "../../components/FavoriteButton";
 import Recipe from "../../components/Recipe";
-const unfavoriteIconUrl = 'https://static-assets.codecademy.com/Courses/Learn-Redux/Recipes-App/icons/unfavorite.svg';
+import {
+  selectFilteredFavoriteRecipes,
+  removeFavoriteRecipe,
+} from "./favoriteRecipesSlice";
+import Spinner from "../../components/Spinner";
 
-export const FavoriteRecipes = () =>{
-  const favoriteRecipes = useSelector(selectFilteredFavoriteRecipes);
+const unfavoriteIconUrl = 'https://static-assets.codecademy.com/Courses/Learn-Redux/Recipes-App/icons/unfavorite.svg'
+
+const FavoriteRecipes = () => {
   const dispatch = useDispatch();
+  const favoriteRecipes = useSelector(selectFilteredFavoriteRecipes);
+  const { isLoading } = useSelector((state) => state.allRecipes);
 
-  const onRemoveRecipeHandler = (recipe) => {
-    dispatch(removeRecipe(recipe));
+  const onRemoveFavoriteRecipeHandler = (recipe) => {
+    dispatch(removeFavoriteRecipe(recipe));
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="recipes-container">
-      {favoriteRecipes.map(createRecipeComponent)}
+      {favoriteRecipes.map((recipe) => (
+        <Recipe recipe={recipe} key={recipe.id}>
+          <FavoriteButton
+            onClickHandler={() => onRemoveFavoriteRecipeHandler(recipe)}
+            icon={unfavoriteIconUrl}
+          >
+            Remove Favorite
+          </FavoriteButton>
+        </Recipe>
+      ))}
     </div>
   );
-
-  // Helper Function
-  function createRecipeComponent(recipe) {
-    return (
-      <Recipe recipe={recipe} key={recipe.id}>
-        <FavoriteButton
-          onClickHandler={() => onRemoveRecipeHandler(recipe)}
-          icon={unfavoriteIconUrl}
-        >
-          Remove Favorite
-        </FavoriteButton>
-      </Recipe>
-    )
-  } 
 };
+
+export default FavoriteRecipes;

@@ -1,33 +1,32 @@
-
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { addRecipe } from '../favoriteRecipes/favoriteRecipesSlice.js';
-import { loadData, selectFilteredAllRecipes } from './allRecipesSlice.js';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FavoriteButton from "../../components/FavoriteButton";
 import Recipe from "../../components/Recipe";
+import { addFavoriteRecipe } from "../favoriteRecipes/favoriteRecipesSlice";
+import { selectFilteredAllRecipes } from "./allRecipesSlice";
+import Spinner from "../../components/Spinner";
 
-const favoriteIconURL = 'https://static-assets.codecademy.com/Courses/Learn-Redux/Recipes-App/icons/favorite.svg';
+const favoriteIconURL = 'https://static-assets.codecademy.com/Courses/Learn-Redux/Recipes-App/icons/favorite.svg'
 
-export const AllRecipes = () => {
-  const allRecipes = useSelector(selectFilteredAllRecipes);
+const AllRecipes = () => {
   const dispatch = useDispatch();
+  const allRecipes = useSelector(selectFilteredAllRecipes);
+  const { isLoading } = useSelector((state) => state.allRecipes);
 
-  const onFirstRender = () => {
-    dispatch(loadData());
-  }
-  useEffect(onFirstRender, [dispatch]);
-  
-  const onAddRecipeHandler = (recipe) => {
-    dispatch(addRecipe(recipe));
+  const onAddFavoriteRecipeHandler = (recipe) => {
+    dispatch(addFavoriteRecipe(recipe));
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="recipes-container">
       {allRecipes.map((recipe) => (
         <Recipe recipe={recipe} key={recipe.id}>
           <FavoriteButton
-            onClickHandler={() => onAddRecipeHandler(recipe)}
+            onClickHandler={() => onAddFavoriteRecipeHandler(recipe)}
             icon={favoriteIconURL}
           >
             Add to Favorites
@@ -38,4 +37,4 @@ export const AllRecipes = () => {
   );
 };
 
-
+export default AllRecipes;
